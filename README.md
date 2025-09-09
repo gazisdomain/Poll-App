@@ -1,4 +1,7 @@
-Poll App - README
+Poll App 
+
+[![CI](https://github.com/<your-username>/Poll-App/actions/workflows/node.js.yml/badge.svg)](https://github.com/<your-username>/Poll-App/actions/workflows/node.js.yml)
+
 A full-stack poll creation and voting application built with Angular, Express, and MongoDB.
 ## 📂 Project Structure
 

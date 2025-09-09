@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout your code
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Setup Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'   # Match your local Node version
+        cache: 'npm'
+
+    # Install backend deps
+    - name: Install backend dependencies
+      run: npm install
+
+    # Install frontend deps
+    - name: Install frontend dependencies
+      run: |
+        cd client
+        npm install
+
+    # Build frontend (Angular)
+    - name: Build Angular app
+      run: |
+        cd client
+        npm run build --if-present
+
+    # (Optional) Run backend tests
+    - name: Run backend tests
+      run: npm test --if-present
+
+    # (Optional) Run frontend tests
+    - name: Run Angular tests
+      run: |
+        cd client
+        npm test --if-present
