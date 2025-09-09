@@ -1,23 +1,25 @@
 Poll App - README
 A full-stack poll creation and voting application built with Angular, Express, and MongoDB.
-📂 Project Structure
+## 📂 Project Structure
 
 Poll-App/
 │
-├── server.js           # Express backend server
-├── package.json        # Backend dependencies & scripts
+├── server.js # Express backend server
+├── package.json # Backend dependencies & scripts
 │
-├── client/             # Angular frontend
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── pages/          # Components (poll list, create poll, detail)
-│   │   │   ├── services/       # PollService for API calls
-│   │   │   ├── app.routes.ts   # Angular routes
-│   │   │   └── app.component.ts# Root Angular component
-│   │   └── environments/       # API base URL config
-│   └── package.json
+├── client/ # Angular frontend
+│ ├── src/
+│ │ ├── app/
+│ │ │ ├── pages/ # Components (poll list, create poll, detail)
+│ │ │ ├── services/ # PollService for API calls
+│ │ │ ├── app.routes.ts # Angular routes
+│ │ │ └── app.component.ts# Root Angular component
+│ │ └── environments/ # API base URL config
+│ └── package.json
 │
-└── README.md           # Project documentation
+└── README.md # Project documentation
+
+
 
 🚀 Features
 
