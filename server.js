@@ -121,4 +121,120 @@ app.use((err, req, res, next) => {
 });
 
 
+
+// For Swagger
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerSpec = {
+  openapi: '3.0.3',
+  info: {
+    title: 'Poll App API',
+    version: '1.0.0',
+    description: 'Endpoints for creating polls, listing, getting details, and voting.',
+  },
+  servers: [{ url: 'http://localhost:4000/api', description: 'Local API' }],
+  components: {
+    schemas: {
+      Option: {
+        type: 'object',
+        properties: {
+          _id: { type: 'string' },
+          text: { type: 'string' },
+          votes: { type: 'integer', default: 0 },
+        },
+        required: ['text'],
+      },
+      Poll: {
+        type: 'object',
+        properties: {
+          _id: { type: 'string' },
+          question: { type: 'string' },
+          options: { type: 'array', items: { $ref: '#/components/schemas/Option' } },
+          multipleChoice: { type: 'boolean' },
+          createdAt: { type: 'string', format: 'date-time' },
+          closesAt: { type: 'string', format: 'date-time', nullable: true },
+        },
+        required: ['question', 'options'],
+      },
+      VoteRequest: {
+        type: 'object',
+        properties: {
+          optionIds: { type: 'array', items: { type: 'string' }, minItems: 1 },
+        },
+        required: ['optionIds'],
+      },
+    },
+  },
+  paths: {
+    '/polls': {
+      get: {
+        summary: 'List polls',
+        tags: ['Polls'],
+        responses: {
+          200: {
+            description: 'Array of polls',
+            content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Poll' } } } },
+          },
+        },
+      },
+      post: {
+        summary: 'Create a new poll',
+        tags: ['Polls'],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  question: { type: 'string', example: 'Your favorite JS framework?' },
+                  multipleChoice: { type: 'boolean', example: false },
+                  closesAt: { type: 'string', format: 'date-time', nullable: true },
+                  options: { type: 'array', items: { type: 'string', example: 'Angular' }, minItems: 2 },
+                },
+                required: ['question', 'options'],
+              },
+            },
+          },
+        },
+        responses: {
+          201: { description: 'Created', content: { 'application/json': { schema: { $ref: '#/components/schemas/Poll' } } } },
+          400: { description: 'Validation error' },
+        },
+      },
+    },
+    '/polls/{id}': {
+      parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+      get: {
+        summary: 'Get a poll by id',
+        tags: ['Polls'],
+        responses: {
+          200: { description: 'Poll', content: { 'application/json': { schema: { $ref: '#/components/schemas/Poll' } } } },
+          404: { description: 'Not found' },
+        },
+      },
+    },
+    '/polls/{id}/vote': {
+      parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+      patch: {
+        summary: 'Vote on a poll',
+        tags: ['Polls'],
+        requestBody: {
+          required: true,
+          content: { 'application/json': { schema: { $ref: '#/components/schemas/VoteRequest' } } },
+        },
+        responses: {
+          200: { description: 'Updated poll', content: { 'application/json': { schema: { $ref: '#/components/schemas/Poll' } } } },
+          400: { description: 'Bad request / poll closed' },
+          404: { description: 'Not found' },
+        },
+      },
+    },
+  },
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
+// Optional: raw JSON at /api-docs.json
+app.get('/api-docs.json', (req, res) => res.json(swaggerSpec));
+
 app.listen(PORT, () => console.log(`API on http://localhost:${PORT}`));

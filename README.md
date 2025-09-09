@@ -70,3 +70,12 @@ PATCH  /api/polls/:id/vote → Vote on a poll
 
 👨💻 Author
 Built with ❤️ using Angular, Express, and MongoDB. Project for learning full-stack development step by step.
+
+## 📸 Screenshots
+
+### Swagger UI
+![Swagger UI](assets/SwaggerUi.png)
+
+### Poll Results
+![Poll Results](assets/PollResult.png)
+
