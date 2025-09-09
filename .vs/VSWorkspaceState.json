@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\app",
+    "\\client\\src\\app\\pages",
+    "\\client\\src\\app\\pages\\create-poll"
+  ],
+  "SelectedNode": "\\client\\src\\app\\pages\\create-poll\\create-poll.ts",
+  "PreviewInSolutionExplorer": false
+}
