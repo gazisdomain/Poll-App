@@ -2,6 +2,7 @@ Poll App - README
 A full-stack poll creation and voting application built with Angular, Express, and MongoDB.
 ## 📂 Project Structure
 
+```
 Poll-App/
 │
 ├── server.js # Express backend server
@@ -18,7 +19,7 @@ Poll-App/
 │ └── package.json
 │
 └── README.md # Project documentation
-
+```
 
 
 🚀 Features
